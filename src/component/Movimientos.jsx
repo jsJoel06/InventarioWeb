@@ -10,14 +10,23 @@ function Movimientos() {
   const userRole = localStorage.getItem("userRole") || "";
   const isAdmin = userRole === "ADMIN";
 
-  async function fetchMovimientos() {
-    try {
-      const response = await axios.get('https://inventarios-n618.onrender.com/movimientos');
-      setMovimientos(response.data);
-    } catch (error) {
-      console.error('Error al obtener movimientos', error);
+async function fetchMovimientos() {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/movimientos`);
+    setMovimientos(response.data);
+  } catch (error) {
+    console.error('Error al obtener movimientos', error);
+
+    if (error.response) {
+      console.error('Respuesta del backend:', error.response.data);
+    } else if (error.request) {
+      console.error('No se recibió respuesta del backend');
+    } else {
+      console.error('Error inesperado:', error.message);
     }
   }
+}
+
 
   useEffect(() => {
     fetchMovimientos();

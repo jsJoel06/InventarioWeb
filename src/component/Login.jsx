@@ -14,11 +14,10 @@ function Login() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://inventarios-n618.onrender.com/login/authenticate",
+        `${import.meta.env.VITE_API_URL}/login/authenticate`,
         { username, password },
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true,
         }
       );
 
@@ -42,7 +41,7 @@ function Login() {
   return (
     <div className="login-container">
       <div className="login-card">
-        <img src="/inventario.jpeg" width={100} height={100}/>
+        <img src="/inventario.jpeg" width={100} height={100} />
         <h1 className="login-title">Sistema de Inventario</h1>
 
         <form onSubmit={handleSubmit} className="login-form">

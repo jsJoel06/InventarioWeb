@@ -15,7 +15,7 @@ function EditarProducto() {
 
   useEffect(() => {
     axios
-      .get(`https://inventarios-n618.onrender.com/productos/${id}`)
+      .get(`${import.meta.env.VITE_API_URL}/productos/${id}`)
       .then((response) => setProducto(response.data))
       .catch((error) => console.error("Error al obtener producto:", error));
   }, [id]);
@@ -27,7 +27,7 @@ function EditarProducto() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(`https://inventarios-n618.onrender.com/productos/${id}`, producto)
+      .put(`${import.meta.env.VITE_API_URL}/productos/${id}`, producto)
       .then(() => navigate("/index"))
       .catch((error) => console.error("Error al actualizar producto:", error));
   };

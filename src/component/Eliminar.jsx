@@ -11,7 +11,8 @@ function Eliminar({ id, onDelete }) {
     try {
       setLoading(true);
 
-      await axios.delete(`https://inventarios-n618.onrender.com/productos/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/productos/${id}`);
+
 
       if (onDelete) onDelete(id);
     } catch (error) {

@@ -15,7 +15,7 @@ function Register() {
 
     try {
       const response = await axios.post(
-        "https://inventarios-n618.onrender.com/login/create",
+        `${import.meta.env.VITE_API_URL}/login/create`,
         { username, password },
         {
           headers: { "Content-Type": "application/json" },
@@ -27,7 +27,6 @@ function Register() {
       setTimeout(() => {
         navigate("/"); // Redirige al login
       }, 1500);
-
     } catch (error) {
       console.error(error);
       setMessage("❌ Error al crear usuario");
@@ -37,7 +36,7 @@ function Register() {
   return (
     <div className="login-container">
       <div className="login-card">
-        <img src="/inventario.jpeg" width={100} height={100}/>
+        <img src="/inventario.jpeg" width={100} height={100} />
         <h1 className="login-title">Crear Cuenta</h1>
 
         <form onSubmit={handleSubmit} className="login-form">

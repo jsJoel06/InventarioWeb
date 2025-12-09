@@ -11,14 +11,23 @@ function Index() {
   const userRole = localStorage.getItem("userRole") || "";
   const isAdmin = userRole === "ADMIN";
 
-  async function fetchProductos() {
-    try {
-      const response = await axios.get("https://inventarios-n618.onrender.com/productos");
-      setProductos(response.data);
-    } catch (error) {
-      console.error("Error al obtener productos", error);
+ async function fetchProductos() {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/productos`);
+    setProductos(response.data);
+  } catch (error) {
+    console.error("Error al obtener productos", error);
+
+    if (error.response) {
+      console.error("Respuesta del backend:", error.response.data);
+    } else if (error.request) {
+      console.error("No se recibió respuesta del backend");
+    } else {
+      console.error("Error inesperado:", error.message);
     }
   }
+}
+
 
   useEffect(() => {
     fetchProductos();

@@ -20,7 +20,7 @@ function AgregarProducto() {
     };
 
     try {
-      await axios.post("https://inventarios-n618.onrender.com/productos", producto);
+     await axios.post(`${import.meta.env.VITE_API_URL}/productos`, producto);
       alert("Producto agregado con éxito");
       navigate("/inventarios"); // redirige a la lista de productos
     } catch (error) {

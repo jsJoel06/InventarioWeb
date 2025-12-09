@@ -14,7 +14,7 @@ function AgregarMovimiento() {
     // Traer productos para seleccionar en el movimiento
     const fetchProductos = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/productos");
+       const res = await axios.get(`${import.meta.env.VITE_API_URL}/productos`);
         setProductos(res.data);
       } catch (err) {
         console.error("Error al obtener productos", err);
@@ -40,7 +40,7 @@ function AgregarMovimiento() {
     };
 
     try {
-      await axios.post("https://inventarios-n618.onrender.com/movimientos", movimiento);
+      await axios.post(`${import.meta.env.VITE_API_URL}/movimientos`, movimiento);
       alert("Movimiento agregado con éxito");
       setProductoId("");
       setCantidad("");

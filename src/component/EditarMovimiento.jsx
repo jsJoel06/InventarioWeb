@@ -17,7 +17,7 @@ function EditarMovimiento() {
   useEffect(() => {
     const fetchMovimiento = async () => {
       try {
-        const res = await axios.get(`https://inventarios-n618.onrender.com/movimientos/${id}`);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/movimientos/${id}`);
 
         setMovimiento({
           ...res.data,
@@ -64,9 +64,8 @@ function EditarMovimiento() {
     };
 
     try {
-      await axios.put(
-        `https://inventarios-n618.onrender.com/movimientos/${id}`,
-        movimientoActualizado,
+        await axios.put(`${import.meta.env.VITE_API_URL}/movimientos/${id}`,
+           movimientoActualizado,
         {
           headers: {
             "Content-Type": "application/json",

@@ -12,7 +12,8 @@ function EliminarM({ id, onDelete }) {
 
     try {
       setLoading(true);
-      await axios.delete(`https://inventarios-n618.onrender.com/movimientos/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/movimientos/${id}`);
+
 
       if (onDelete) onDelete(id);
     } catch (error) {
