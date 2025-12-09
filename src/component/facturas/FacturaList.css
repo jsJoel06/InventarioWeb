@@ -1,0 +1,135 @@
+/* Contenedor principal */
+.factura-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Título */
+.factura-title {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Acciones */
+.factura-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+/* Botón crear factura */
+.btn-nueva-factura {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.btn-nueva-factura:hover {
+  filter: brightness(0.9);
+}
+
+/* Grid de facturas */
+.facturas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Tarjeta de factura */
+.factura-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  transition: 0.2s;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.factura-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Contenido de tarjeta */
+.factura-card-body {
+  padding: 16px;
+}
+
+.factura-card-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.factura-card-text {
+  margin: 5px 0;
+}
+
+/* Botones dentro de tarjeta */
+.factura-card-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-ver {
+  background-color: #007bff;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.btn-pdf {
+  background-color: #d9534f;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.btn-ver:hover,
+.btn-pdf:hover {
+  filter: brightness(0.9);
+}
+
+/* Texto cuando no hay facturas */
+.sin-facturas {
+  text-align: center;
+  font-style: italic;
+}
+
+/* Botones principales en FacturaList */
+.factura-actions .btn-nueva-factura,
+.factura-actions .btn-historial-facturas {
+  display: inline-block;
+  margin-right: 10px;      /* Separación entre botones */
+  padding: 8px 16px;       /* Tamaño del botón */
+  background-color: #4CAF50; /* Verde */
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 6px;       /* Bordes redondeados */
+  transition: background-color 0.3s ease;
+}
+
+.factura-actions .btn-nueva-factura:hover,
+.factura-actions .btn-historial-facturas:hover {
+  background-color: #45a049; /* Verde más oscuro al pasar el mouse */
+}
+
+/* Si quieres diferenciarlos, puedes usar otro color */
+.factura-actions .btn-historial-facturas {
+  background-color: #2196F3; /* Azul */
+}
+
+.factura-actions .btn-historial-facturas:hover {
+  background-color: #1976D2; /* Azul más oscuro al pasar el mouse */
+}

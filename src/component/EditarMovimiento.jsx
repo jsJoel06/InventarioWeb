@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
-
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 function EditarMovimiento() {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [movimiento, setMovimiento] = useState({
-    producto: { id: '', nombre: '', descripcion: '', precio: '', cantidad: '' },
-    cantidad: '',
-    tipo: '',
-    fecha: '',
-    descripcion: ''
+    producto: { id: "", nombre: "", descripcion: "", precio: "", cantidad: "" },
+    cantidad: "",
+    tipo: "ENTRADA",
+    fecha: "",
+    descripcion: "",
   });
 
   useEffect(() => {
     const fetchMovimiento = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/movimientos/${id}`);
-        setMovimiento(res.data);
+        const res = await axios.get(`https://inventarios-n618.onrender.com/movimientos/${id}`);
+
+        setMovimiento({
+          ...res.data,
+          cantidad: Number(res.data.cantidad),
+        });
       } catch (err) {
-        console.error('Error al obtener el movimiento:', err);
+        console.error("Error al obtener el movimiento:", err);
       }
     };
     fetchMovimiento();
@@ -29,33 +32,53 @@ function EditarMovimiento() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     if (name.startsWith("producto.")) {
       const field = name.split(".")[1];
-      setMovimiento(prev => ({
+      setMovimiento((prev) => ({
         ...prev,
         producto: {
           ...prev.producto,
-          [field]: value
-        }
+          [field]: value,
+        },
       }));
     } else {
-      setMovimiento(prev => ({ ...prev, [name]: value }));
+      setMovimiento((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      // La fecha se actualiza automáticamente al día actual
-      const hoy = new Date().toISOString().split('T')[0];
-      const movimientoActualizado = { ...movimiento, fecha: hoy };
 
-      await axios.put(`http://localhost:8080/movimientos/${id}`, movimientoActualizado);
-      alert('Movimiento actualizado con éxito');
-      navigate('/movimientos');
+    const movimientoActualizado = {
+      producto: {
+        id: Number(movimiento.producto.id), // ✅ SOLO ID
+      },
+      cantidad: Number(movimiento.cantidad), // ✅ numérico
+      tipo: movimiento.tipo, // ✅ ENTRADA / SALIDA
+      fecha: new Date().toISOString().substring(0, 19), // ✅ LocalDateTime válido
+      descripcion: movimiento.descripcion,
+    };
+
+    try {
+      await axios.put(
+        `https://inventarios-n618.onrender.com/movimientos/${id}`,
+        movimientoActualizado,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      alert("Movimiento actualizado con éxito");
+      navigate("/movimientos");
     } catch (error) {
-      console.error('Error al actualizar el movimiento:', error);
-      alert('Error al actualizar el movimiento');
+      console.error("Error al actualizar el movimiento:", error);
+      alert("Error al actualizar el movimiento");
     }
   };
 
@@ -69,7 +92,7 @@ function EditarMovimiento() {
           <input
             type="text"
             name="producto.nombre"
-            value={movimiento.producto?.nombre || ''}
+            value={movimiento.producto?.nombre || ""}
             disabled
           />
         </div>
@@ -87,7 +110,12 @@ function EditarMovimiento() {
 
         <div>
           <label>Tipo:</label>
-          <select name="tipo" value={movimiento.tipo} onChange={handleChange} required>
+          <select
+            name="tipo"
+            value={movimiento.tipo}
+            onChange={handleChange}
+            required
+          >
             <option value="ENTRADA">ENTRADA</option>
             <option value="SALIDA">SALIDA</option>
           </select>
@@ -110,6 +138,3 @@ function EditarMovimiento() {
 }
 
 export default EditarMovimiento;
-
-
-

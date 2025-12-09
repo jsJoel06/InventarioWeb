@@ -1,4 +1,4 @@
-* {
+body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -104,7 +104,7 @@ button {
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
-    color: #fff;
+    color: white;
     cursor: pointer;
     margin-right: 5px;
 }
@@ -113,6 +113,4 @@ button.edit {
     background-color: #2980b9;
 }
 
-button.delete {
-    background-color: #e74c3c;
-}
+

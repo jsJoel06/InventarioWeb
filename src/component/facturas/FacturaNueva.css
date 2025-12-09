@@ -1,0 +1,121 @@
+/* Contenedor principal */
+.factura-nueva-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Header tarjeta cliente */
+.factura-header-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.factura-header-title {
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+/* Inputs cliente */
+.cliente-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-cliente {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Productos */
+.productos-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-agregar-producto {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.btn-agregar-producto:hover {
+  filter: brightness(0.9);
+}
+
+.producto-item-card {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+}
+
+.producto-item-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.select-producto,
+.input-cantidad {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.producto-precio {
+  text-align: right;
+  min-width: 100px;
+}
+
+.producto-precio p {
+  margin: 2px 0;
+}
+
+/* Footer total y botón */
+.factura-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-valor {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.btn-guardar {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-guardar:hover {
+  filter: brightness(0.9);
+}

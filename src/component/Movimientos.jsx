@@ -1,15 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import EliminarM from './EliminarM';
 
 function Movimientos() {
   const [movimientos, setMovimientos] = useState([]);
   const [search, setSearch] = useState('');
 
+  const userRole = localStorage.getItem("userRole") || "";
+  const isAdmin = userRole === "ADMIN";
+
   async function fetchMovimientos() {
     try {
-      const response = await axios.get('http://localhost:8080/movimientos');
+      const response = await axios.get('https://inventarios-n618.onrender.com/movimientos');
       setMovimientos(response.data);
     } catch (error) {
       console.error('Error al obtener movimientos', error);
@@ -20,7 +23,6 @@ function Movimientos() {
     fetchMovimientos();
   }, []);
 
-  // Filtrar por nombre del producto
   const filterMovimientos = movimientos.filter(mov =>
     mov.producto.nombre.toLowerCase().includes(search.toLowerCase())
   );
@@ -29,11 +31,12 @@ function Movimientos() {
     <div className="container">
       <div className="sidebar">
         <h2>Menú Inventario</h2>
-        <a href="/">Regresar</a>
-        <a href="/agregar-movimiento">Agregar Movimiento</a>
+        <a href="/index">Regresar</a>
+        {isAdmin && <a href="/agregar-movimiento">Agregar Movimiento</a>}
         <a href="/inventarios">Inventarios</a>
         <a href="/movimientos">Movimientos</a>
         <a href="/reportes">Reportes</a>
+        <a href="/">Salir</a>
       </div>
 
       <div className="main-content">
@@ -59,13 +62,13 @@ function Movimientos() {
               <th>Tipo</th>
               <th>Fecha</th>
               <th>Descripción Mov.</th>
-              <th>Acciones</th>
+              {isAdmin && <th>Acciones</th>}
             </tr>
           </thead>
           <tbody>
             {filterMovimientos.length === 0 ? (
               <tr>
-                <td colSpan="8">No hay movimientos disponibles</td>
+                <td colSpan={isAdmin ? 8 : 7}>No hay movimientos disponibles</td>
               </tr>
             ) : (
               filterMovimientos.map((movi) => (
@@ -77,13 +80,25 @@ function Movimientos() {
                   <td>{movi.tipo}</td>
                   <td>{movi.fecha ? new Date(movi.fecha).toLocaleString() : '-'}</td>
                   <td>{movi.descripcion}</td>
-                
+
+                  {isAdmin && (
                     <td>
-      <Link to={`/movimientos/editar/${movi.id}`}>
-        <button className="edit">Editar</button>
-      </Link>
-                    <button className="delete">Eliminar</button>
-                  </td>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        <Link to={`/movimientos/editar/${movi.id}`}>
+                          <button className="edit">Editar</button>
+                        </Link>
+
+                        <EliminarM
+                          id={movi.id}
+                          onDelete={(idEliminado) =>
+                            setMovimientos(
+                              movimientos.filter((m) => m.id !== idEliminado)
+                            )
+                          }
+                        />
+                      </div>
+                    </td>
+                  )}
                 </tr>
               ))
             )}

@@ -1,0 +1,100 @@
+.historial-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+}
+
+.filtros {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.filtros input,
+.filtros button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.filtros button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.filtros button:hover {
+  background-color: #0056b3;
+}
+
+.historial-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.historial-table th,
+.historial-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.historial-table th {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.historial-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.badge-green {
+  background-color: #2e7d32;
+}
+
+.badge-red {
+  background-color: #d32f2f;
+}
+
+.badge-yellow {
+  background-color: #f9a825;
+}
+
+.btn-ver,
+.btn-pdf {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn-ver {
+  background-color: #007bff;
+}
+
+.btn-ver:hover {
+  background-color: #0056b3;
+}
+
+.btn-pdf {
+  background-color: #d32f2f;
+}
+
+.btn-pdf:hover {
+  background-color: #b71c1c;
+}
