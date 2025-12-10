@@ -12,7 +12,7 @@ function FacturaNueva() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/productos")
+    fetch(`${import.meta.env.VITE_API_URL}/productos`)
       .then((res) => res.json())
       .then((data) => setProductos(Array.isArray(data) ? data : data.data || []))
       .catch((err) => console.error("Error al obtener productos:", err));
@@ -44,7 +44,6 @@ function FacturaNueva() {
   const totalFactura = items.reduce((acc, item) => acc + item.subtotal, 0);
 
   const guardarFactura = async () => {
-    // Validaciones
     if (!cliente.nombre || !cliente.telefono || !cliente.correo) {
       alert("Por favor complete todos los datos del cliente.");
       return;
@@ -58,14 +57,8 @@ function FacturaNueva() {
       return;
     }
 
-    // Crear objeto para enviar al backend
     const factura = {
-      cliente: {
-        nombre: cliente.nombre,
-        telefono: cliente.telefono,
-        direccion: cliente.direccion,
-        correo: cliente.correo,
-      },
+      cliente: { ...cliente },
       detalles: items.map((i) => ({
         productoId: i.productoId,
         cantidad: i.cantidad,
@@ -73,7 +66,7 @@ function FacturaNueva() {
     };
 
     try {
-      const res = await fetch("http://localhost:8080/facturas/crear", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/facturas/crear`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(factura),
@@ -89,7 +82,6 @@ function FacturaNueva() {
       const data = await res.json();
       console.log("Factura creada:", data);
 
-      // ✅ No abrir PDF automáticamente
       alert("Factura guardada correctamente.");
 
       // Reset formulario

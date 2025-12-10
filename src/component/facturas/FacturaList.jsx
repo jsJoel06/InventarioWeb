@@ -6,7 +6,7 @@ function FacturaList() {
   const [facturas, setFacturas] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/facturas")
+    fetch(`${import.meta.env.VITE_API_URL}/facturas`)
       .then((res) => res.json())
       .then((data) => setFacturas(Array.isArray(data) ? data : []))
       .catch((err) => console.error("Error al obtener facturas:", err));
@@ -54,7 +54,7 @@ function FacturaList() {
                   </Link>
 
                   <a
-                    href={`http://localhost:8080/facturas/${f.id}/pdf`}
+                    href={`${import.meta.env.VITE_API_URL}/facturas/${f.id}/pdf`}
                     className="btn-pdf"
                     target="_blank"
                     rel="noopener noreferrer"

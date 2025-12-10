@@ -10,26 +10,27 @@ function FacturaDetalle() {
   const [metodoPago, setMetodoPago] = useState("Efectivo");
   const [fechaPago, setFechaPago] = useState("");
 
-  // Obtener factura
-  useEffect(() => {
-    fetch(`http://localhost:8080/facturas/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setFactura(data);
-        setLoading(false);
+ // Obtener factura
+useEffect(() => {
+  fetch(`${import.meta.env.VITE_API_URL}/facturas/${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      setFactura(data);
+      setLoading(false);
 
-        // Inicializar monto pendiente, método y fecha
-        const totalPagado =
-          data.pagos?.reduce((sum, p) => sum + parseFloat(p.monto), 0) || 0;
-        setMontoPago(data.total - totalPagado);
-        setMetodoPago("Efectivo");
-        setFechaPago(new Date().toISOString().substring(0, 10));
-      })
-      .catch((err) => {
-        console.error("Error al obtener la factura:", err);
-        setLoading(false);
-      });
-  }, [id]);
+      // Inicializar monto pendiente, método y fecha
+      const totalPagado =
+        data.pagos?.reduce((sum, p) => sum + parseFloat(p.monto), 0) || 0;
+      setMontoPago(data.total - totalPagado);
+      setMetodoPago("Efectivo");
+      setFechaPago(new Date().toISOString().substring(0, 10));
+    })
+    .catch((err) => {
+      console.error("Error al obtener la factura:", err);
+      setLoading(false);
+    });
+}, [id]);
+
 
   if (loading) return <p>Cargando...</p>;
   if (!factura) return <p>No se encontró la factura.</p>;
@@ -49,38 +50,42 @@ function FacturaDetalle() {
   };
 
   // Agregar pago
-  const agregarPago = () => {
-    if (!montoPago || !metodoPago || !fechaPago) {
-      alert("Completa todos los campos del pago");
-      return;
-    }
+const agregarPago = () => {
+  if (!montoPago || !metodoPago || !fechaPago) {
+    alert("Completa todos los campos del pago");
+    return;
+  }
 
-    fetch(`http://localhost:8080/facturas/${id}/pagos`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        monto: parseFloat(montoPago),
-        metodo: metodoPago,
-        fechaPago: fechaPago,
-      }),
+  fetch(`${import.meta.env.VITE_API_URL}/facturas/${id}/pagos`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      monto: parseFloat(montoPago),
+      metodo: metodoPago,
+      fechaPago: fechaPago,
+    }),
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error("Error al agregar el pago");
+      return res.json();
     })
-      .then((res) => res.json())
-      .then((data) => {
-        setFactura(data);
+    .then((data) => {
+      setFactura(data);
 
-        // Actualizar monto pendiente automáticamente
-        const totalPagado =
-          data.pagos?.reduce((sum, p) => sum + parseFloat(p.monto), 0) || 0;
-        const pendiente = data.total - totalPagado;
-        setMontoPago(pendiente > 0 ? pendiente : 0);
+      // Actualizar monto pendiente automáticamente
+      const totalPagado =
+        data.pagos?.reduce((sum, p) => sum + parseFloat(p.monto), 0) || 0;
+      const pendiente = data.total - totalPagado;
+      setMontoPago(pendiente > 0 ? pendiente : 0);
 
-        setMetodoPago("Efectivo");
-        setFechaPago(new Date().toISOString().substring(0, 10));
+      setMetodoPago("Efectivo");
+      setFechaPago(new Date().toISOString().substring(0, 10));
 
-        alert("Pago agregado correctamente");
-      })
-      .catch((err) => console.error(err));
-  };
+      alert("Pago agregado correctamente");
+    })
+    .catch((err) => console.error(err));
+};
+
 
   return (
     <div className="factura-detalle-container">

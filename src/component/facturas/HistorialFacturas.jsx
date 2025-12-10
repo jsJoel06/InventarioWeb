@@ -6,7 +6,6 @@ function HistorialFacturas({ clienteCorreo }) {
   const [loading, setLoading] = useState(true);
   const [clienteId, setClienteId] = useState(null);
 
-  // Filtros
   const [filtroCliente, setFiltroCliente] = useState("");
   const [filtroFecha, setFiltroFecha] = useState("");
   const [filtroTotalMin, setFiltroTotalMin] = useState("");
@@ -24,7 +23,7 @@ function HistorialFacturas({ clienteCorreo }) {
 
     const fetchClienteId = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/clientes?correo=${clienteCorreo}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/clientes?correo=${clienteCorreo}`);
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
           setClienteId(data[0].id);
@@ -49,7 +48,7 @@ function HistorialFacturas({ clienteCorreo }) {
 
     setLoading(true);
     try {
-      let url = `http://localhost:8080/facturas/cliente/${id}`;
+      let url = `${import.meta.env.VITE_API_URL}/facturas/cliente/${id}`;
       const params = new URLSearchParams();
       if (filtroCliente) params.append("cliente", filtroCliente);
       if (filtroFecha) params.append("fecha", filtroFecha);
@@ -147,13 +146,13 @@ function HistorialFacturas({ clienteCorreo }) {
               </td>
               <td>
                 <a
-                  href={`http://localhost:5173/facturas/${f.id}`}
+                  href={`/facturas/${f.id}`}
                   className="btn-ver"
                 >
                   Ver
                 </a>
                 <a
-                  href={`http://localhost:8080/facturas/${f.id}/pdf`}
+                  href={`${import.meta.env.VITE_API_URL}/facturas/${f.id}/pdf`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-pdf"
