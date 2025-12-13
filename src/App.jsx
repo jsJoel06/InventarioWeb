@@ -5,7 +5,7 @@ import Index from "./component/Index";
 import Inventario from "./component/Inventario";
 import Movimientos from "./component/Movimientos";
 import AgregarProducto from "./component/AgregarProducto";
-import AgregarMovimiento from "./component/AgregarMovimientos"; 
+import AgregarMovimiento from "./component/AgregarMovimiento"; 
 import EditarMovimiento from "./component/EditarMovimiento";
 import EditarProducto from "./component/EditarProducto";
 import Login from "./component/Login";
