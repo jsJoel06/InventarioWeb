@@ -7,6 +7,7 @@ function AgregarProducto() {
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
   const [cantidad, setCantidad] = useState("");
+  const [precioCosto, setPrecioCosto] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -15,6 +16,7 @@ function AgregarProducto() {
     const producto = {
       nombre,
       descripcion,
+      precioCosto,
       precio,
       cantidad,
     };
@@ -52,7 +54,14 @@ function AgregarProducto() {
             />
           </div>
           <div>
-            <label>Precio:</label>
+            <label>Precio Costo:</label>
+            <input type="text"
+            value={precioCosto}
+            onChange={(e) => setPrecioCosto(e.target.value)}
+            required />
+          </div>
+          <div>
+            <label>Precio Venta:</label>
             <input
               type="text"
               value={precio}

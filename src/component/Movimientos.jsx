@@ -49,7 +49,21 @@ async function fetchMovimientos() {
       </div>
 
       <div className="main-content">
+        <h2>📊  Resumen General  </h2>
+         <br />
+         <p><strong>Total de Ventas: </strong> $
+          {filterMovimientos
+            .filter(mov => mov.tipo === 'SALIDA')
+            .reduce((total, mov) => total + (parseFloat(mov.producto.precio) * parseInt(mov.cantidad)), 0)
+            .toFixed(2)}</p>
+          <p><strong>Total de Compras: </strong> $
+          {filterMovimientos
+            .filter(mov => mov.tipo === 'ENTRADA')
+            .reduce((total, mov) => total + (parseFloat(mov.producto.precio) * parseInt(mov.cantidad)), 0)
+            .toFixed(2)}</p>
+            
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          
           <h1>Movimientos</h1>
           <div className="search-container">
             <input

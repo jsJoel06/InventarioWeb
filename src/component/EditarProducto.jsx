@@ -9,6 +9,7 @@ function EditarProducto() {
   const [producto, setProducto] = useState({
     nombre: "",
     descripcion: "",
+    precioCosto: "",
     precio: "",
     cantidad: "",
   });
@@ -45,7 +46,7 @@ function EditarProducto() {
               type="text"
               name="nombre"
               value={producto.nombre}
-              readOnly // <-- Aquí se evita que se edite
+              onChange={handleChange}
             />
           </div>
 
@@ -58,9 +59,17 @@ function EditarProducto() {
               onChange={handleChange}
             />
           </div>
-
           <div>
-            <label htmlFor="precio">Precio</label>
+            <label htmlFor="precioCosto">Precio Costo</label>
+            <input
+              type="number"
+              name="precioCosto"
+              value={producto.precioCosto}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="precio">Precio </label>
             <input
               type="number"
               name="precio"
